@@ -47,4 +47,4 @@ app.*.map.json
 /android/app/release
 
 #extras
-flutter_search_book/android/app/google-services.json
+/android/app/google-services.json
