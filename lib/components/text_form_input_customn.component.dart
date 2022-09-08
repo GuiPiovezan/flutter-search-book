@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_search_book/theme/dark.theme.dart';
 import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 
+// ignore: must_be_immutable
 class TextFormInputCustomn extends StatefulWidget {
   final String? labelText;
   final IconData? prefixIcon;
   bool isTextInputSecret;
   bool obscureText;
+  final FormFieldSetter<String>? onSaved;
+  final TextEditingController? controller;
+  final FormFieldValidator<String>? validator;
 
   TextFormInputCustomn(
       {Key? key,
       required this.labelText,
       required this.prefixIcon,
       this.obscureText = false,
-      this.isTextInputSecret = false})
+      this.isTextInputSecret = false,
+      this.onSaved,
+      this.controller,
+      this.validator})
       : super(key: key);
 
   @override
@@ -34,6 +40,9 @@ class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextFormField(
+            onSaved: widget.onSaved,
+            controller: widget.controller,
+            validator: widget.validator,
             obscureText: widget.obscureText,
             decoration: InputDecoration(
               labelText: widget.labelText,
@@ -57,15 +66,16 @@ class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
                         });
                       },
                       child: Icon(
-                          widget.obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: whiteColor),
+                        widget.obscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: whiteColor,
+                      ),
                     )
                   : null,
             ),
             style: const TextStyle(
-              fontSize: 22.0,
+              fontSize: 20.0,
             ),
           ),
         ],
