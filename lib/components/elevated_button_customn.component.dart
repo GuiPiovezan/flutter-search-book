@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_search_book/theme/dark_class_theme.theme.dart';
+import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 
 class ElevatedButtonCustomn extends StatelessWidget {
   final String? textButton;
@@ -18,7 +16,7 @@ class ElevatedButtonCustomn extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: DarkEnumColorsTheme.colorPurple.value,
           fixedSize: Size(MediaQuery.of(context).size.width, 50.0),
-          textStyle: TextStyle(fontSize: DarkClassTheme().fontSize),
+          textStyle: TextStyle(fontSize: fontSize),
           elevation: 10,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),

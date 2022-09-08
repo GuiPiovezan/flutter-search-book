@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/theme/dark.theme.dart';
-import 'package:flutter_search_book/theme/dark_class_theme.theme.dart';
+import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 
 class TextFormInputCustomn extends StatefulWidget {
   final String? labelText;
@@ -46,7 +46,7 @@ class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
                 child: Icon(
                   widget.prefixIcon,
                   size: 30.0,
-                  color: DarkClassTheme().whiteColor,
+                  color: whiteColor,
                 ),
               ),
               suffixIcon: widget.isTextInputSecret
@@ -60,7 +60,7 @@ class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
                           widget.obscureText
                               ? Icons.visibility
                               : Icons.visibility_off,
-                          color: colorPurple),
+                          color: whiteColor),
                     )
                   : null,
             ),

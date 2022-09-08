@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_search_book/theme/dark_class_theme.theme.dart';
+import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 
-Color primaryColor = DarkClassTheme().primaryColor;
-double fontSize = DarkClassTheme().fontSize;
 Color colorPurple = DarkEnumColorsTheme.colorPurple.value;
 
 ThemeData themeData = ThemeData(
@@ -13,13 +11,13 @@ ThemeData themeData = ThemeData(
       color: colorPurple,
       fontSize: fontSize,
     ),
-    enabledBorder: underlineINputBorder,
-    border: underlineINputBorder,
-    focusedBorder: underlineINputBorder,
+    enabledBorder: underlineInputBorder,
+    border: underlineInputBorder,
+    focusedBorder: underlineInputBorder,
   ),
 );
 
-InputBorder underlineINputBorder = UnderlineInputBorder(
+InputBorder underlineInputBorder = UnderlineInputBorder(
   borderSide: BorderSide(
     color: primaryColor,
   ),
