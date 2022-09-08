@@ -10,7 +10,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: themeData,
       routes: {
-        '/': (context) => const LoginView(),
+        '/': (context) => LoginView(),
       },
       debugShowCheckedModeBanner: false,
     );
