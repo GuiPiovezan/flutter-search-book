@@ -5,5 +5,5 @@ import 'package:flutter_search_book/views/app.view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const App());
+  runApp(App());
 }
