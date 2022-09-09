@@ -32,7 +32,7 @@ class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         8.0,
-        3.0,
+        5.0,
         8.0,
         3.0,
       ),
@@ -73,6 +73,7 @@ class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
                       ),
                     )
                   : null,
+              errorStyle: const TextStyle(fontSize: 16.0),
             ),
             style: const TextStyle(
               fontSize: 20.0,
