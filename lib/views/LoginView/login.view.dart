@@ -20,10 +20,11 @@ class _LoginViewState extends State<LoginView> {
   var authenticationService = AuthenticationService();
   bool isLoading = false;
 
+  final email = TextEditingController();
+  final password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var formService = FormService(formKey: _formKey);
-    String email = '', password = '';
 
     return Scaffold(
       body: Form(
@@ -36,7 +37,7 @@ class _LoginViewState extends State<LoginView> {
               TextFormInputCustomn(
                 labelText: 'E-mail',
                 prefixIcon: Icons.person_outlined,
-                onSaved: (value) => email = value!,
+                controller: email,
                 validator: MultiValidator([
                   RequiredValidator(errorText: 'E-mail é obrigatório'),
                   EmailValidator(errorText: 'E-mail incorreto')
@@ -44,7 +45,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               TextFormInputCustomn(
                 labelText: 'Senha',
-                onSaved: (value) => password = value!,
+                controller: password,
                 prefixIcon: Icons.lock_outline,
                 obscureText: true,
                 isTextInputSecret: true,
@@ -66,7 +67,7 @@ class _LoginViewState extends State<LoginView> {
                   : ElevatedButtonCustomn(
                       textButton: 'Login',
                       onPressed: () async {
-                        await _login(formService, email, password, context);
+                        await _login(formService, context);
                       },
                     ),
             ],
@@ -76,13 +77,14 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Future<void> _login(FormService formService, String email, String password,
-      BuildContext context) async {
+  Future<void> _login(FormService formService, BuildContext context) async {
+    print(email.text);
+    print(password.text);
     setState(() => isLoading = true);
     if (formService.validateForm()) {
       formService.saveForm();
       try {
-        await authenticationService.login(context, email, password);
+        await authenticationService.login(context, email.text, password.text);
       } on AuthenticationException catch (e) {
         setState(() => isLoading = false);
         showDialog(
