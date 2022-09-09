@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_search_book/services/authentication.services.dart';
 import 'package:flutter_search_book/theme/dark.theme.dart';
+import 'package:flutter_search_book/views/home.view.dart';
 import 'package:flutter_search_book/views/login.view.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  App({Key? key}) : super(key: key);
+
+  final auth = AuthenticationService();
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +15,9 @@ class App extends StatelessWidget {
       theme: themeData,
       routes: {
         '/': (context) => LoginView(),
+        '/home': (context) => const HomeView(),
       },
+      initialRoute: auth.userIsLogaded() == null ? '/' : '/home',
       debugShowCheckedModeBanner: false,
     );
   }
