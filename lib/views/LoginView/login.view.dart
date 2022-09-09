@@ -8,7 +8,7 @@ import 'package:flutter_search_book/theme/dark.theme.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginView extends StatefulWidget {
-  LoginView({Key? key}) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -30,10 +30,48 @@ class _LoginViewState extends State<LoginView> {
       body: Form(
         key: _formKey,
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset('lib/images/icon_logo.png'),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20),
+                  ),
+                ),
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 5, 3),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(122, 0, 0, 0),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(1, 0.5),
+                        ),
+                      ],
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                      ),
+                    ),
+                    margin: EdgeInsets.fromLTRB(0, 0, 7, 3),
+                    child: Image.asset(
+                      'lib/images/icon_logo.png',
+                      scale: 0.6,
+                    ),
+                  ),
+                ),
+              ),
               TextFormInputCustomn(
                 labelText: 'E-mail',
                 prefixIcon: Icons.person_outlined,

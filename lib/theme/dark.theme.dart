@@ -6,7 +6,7 @@ import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 Color colorPurple = DarkEnumColorsTheme.colorPurple.value;
 
 ThemeData themeData = ThemeData(
-  fontFamily: 'Georgia',
+  fontFamily: 'Verdana',
   brightness: Brightness.dark,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: colorPurple,
