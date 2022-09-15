@@ -8,7 +8,7 @@ import 'package:flutter_search_book/theme/dark.theme.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginView extends StatefulWidget {
-  LoginView({Key? key}) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   State<LoginView> createState() => _LoginViewState();

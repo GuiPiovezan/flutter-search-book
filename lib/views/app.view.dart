@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       theme: themeData,
       routes: {
         '/': (context) => LoginView(),
-        '/home': (context) => HomeView(),
+        '/home': (context) => const HomeView(),
       },
       initialRoute: auth.userIsLogaded() == null ? '/' : '/home',
       debugShowCheckedModeBanner: false,
