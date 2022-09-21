@@ -17,20 +17,22 @@ class _HomeViewState extends State<HomeView> {
   String text = 'Seja bem-vindo desenvolvedor';
   final TextRecognizer _textRecognizer = TextRecognizer();
 
+  get inputImageData => null;
+
   Future<XFile?> pickImage() async =>
       await ImagePicker().pickImage(source: ImageSource.camera);
 
   Future<String?> readTextFromImage(XFile imageFile) async {
-    final InputImage inputImage;
+    InputImage inputImage;
 
-    inputImage = imageFile as InputImage;
+    inputImage = InputImage.fromFilePath(imageFile.path);
 
     final recognizedText = await _textRecognizer.processImage(inputImage);
-
+ 
     return recognizedText.text;
   }
 
-  void translateTextImage() async {
+  void getTextImage() async {
     var pickedFile = await pickImage();
     var originalText = await readTextFromImage(pickedFile!);
 
@@ -51,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: translateTextImage,
+        onPressed: getTextImage,
         child: const Icon(Icons.camera_alt),
       ),
     );

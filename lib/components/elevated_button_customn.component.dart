@@ -16,7 +16,6 @@ class ElevatedButtonCustomn extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: DarkEnumColorsTheme.colorPurple.value,
           fixedSize: Size(MediaQuery.of(context).size.width, 50.0),
           textStyle: TextStyle(fontSize: fontSize),
           elevation: 10,
