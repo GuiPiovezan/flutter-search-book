@@ -34,4 +34,12 @@ class AuthenticationService {
   userIsLogaded() {
     return _auth.currentUser;
   }
+
+  logout(BuildContext context) async {
+    await _auth.signOut();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/',
+      (Route<dynamic> route) => false,
+    );
+  }
 }
