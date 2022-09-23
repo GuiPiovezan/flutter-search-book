@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_search_book/components/app_bar_custom.component.dart';
+import 'package:flutter_search_book/components/drawer_custom.component.dart';
+import 'package:flutter_search_book/components/text_button_custom.component.dart';
 import 'package:flutter_search_book/services/camera.service.dart';
 import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
     inputImage = InputImage.fromFilePath(imageFile.path);
 
     final recognizedText = await _textRecognizer.processImage(inputImage);
- 
+
     return recognizedText.text;
   }
 
@@ -44,18 +47,51 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: fontSize,
+      drawer: DrawerCustom(),
+      appBar: const AppBarCustom(
+        icon: Icon(Icons.search_rounded),
+        title: "Search Book's",
+      ),
+      body: Column(children: [
+        Expanded(
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: fontSize,
+              ),
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getTextImage,
-        child: const Icon(Icons.camera_alt),
-      ),
+        Container(
+          padding: const EdgeInsets.fromLTRB(20, 25, 20, 15),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 0, 0, 0),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: TextButtonCustom(
+            onPressed: getTextImage,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                ),
+                Text(
+                  " Buscar",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      ]),
     );
   }
 }
