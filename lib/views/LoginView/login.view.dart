@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_search_book/components/alert_dialog_component.dart';
-import 'package:flutter_search_book/components/elevated_button_customn.component.dart';
+import 'package:flutter_search_book/components/alert_dialog.component.dart';
+import 'package:flutter_search_book/components/elevated_button_custom.component.dart';
 import 'package:flutter_search_book/components/text_form_input_customn.component.dart';
 import 'package:flutter_search_book/services/authentication.services.dart';
 import 'package:flutter_search_book/services/form.services.dart';
@@ -102,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                     )
-                  : ElevatedButtonCustomn(
+                  : ElevatedButtonCustom(
                       textButton: 'Login',
                       onPressed: () async {
                         await _login(formService, context);
