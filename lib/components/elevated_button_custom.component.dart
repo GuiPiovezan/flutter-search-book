@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 
-class ElevatedButtonCustomn extends StatelessWidget {
+class ElevatedButtonCustom extends StatelessWidget {
   final String? textButton;
   final VoidCallback? onPressed;
 
-  const ElevatedButtonCustomn(
-      {Key? key, required this.textButton, required this.onPressed})
-      : super(key: key);
+  const ElevatedButtonCustom({
+    Key? key,
+    required this.textButton,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
