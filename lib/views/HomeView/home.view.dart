@@ -3,6 +3,7 @@ import 'package:flutter_search_book/components/app_bar_custom.component.dart';
 import 'package:flutter_search_book/components/drawer_custom.component.dart';
 import 'package:flutter_search_book/components/text_button_custom.component.dart';
 import 'package:flutter_search_book/services/camera.service.dart';
+import 'package:flutter_search_book/services/search_api.services.dart';
 import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -19,8 +20,13 @@ class _HomeViewState extends State<HomeView> {
 
   String text = 'Seja bem-vindo desenvolvedor';
   final TextRecognizer _textRecognizer = TextRecognizer();
+  final BooksService _booksService = BooksService();
 
   get inputImageData => null;
+
+  searchBooks() async {
+    await _booksService.setResult(text);
+  }
 
   Future<XFile?> pickImage() async =>
       await ImagePicker().pickImage(source: ImageSource.camera);
@@ -42,6 +48,8 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       text = originalText!;
     });
+
+    searchBooks();
   }
 
   @override
