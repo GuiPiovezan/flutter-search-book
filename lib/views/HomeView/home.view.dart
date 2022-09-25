@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_search_book/components/app_bar_custom.component.dart';
 import 'package:flutter_search_book/components/drawer_custom.component.dart';
 import 'package:flutter_search_book/components/text_button_custom.component.dart';
+import 'package:flutter_search_book/core/container.history.core.dart';
 import 'package:flutter_search_book/services/camera.service.dart';
 import 'package:flutter_search_book/services/search_api.services.dart';
-import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
@@ -25,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
   get inputImageData => null;
 
   searchBooks() async {
-    await _booksService.setResult(text);
+    await _booksService.setResult(text, context);
   }
 
   Future<XFile?> pickImage() async =>
@@ -55,51 +55,55 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerCustom(),
+      extendBody: true,
+      drawer: const DrawerCustom(),
       appBar: const AppBarCustom(
         icon: Icon(Icons.search_rounded),
         title: "Search Book's",
       ),
-      body: Column(children: [
-        Expanded(
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: fontSize,
-              ),
+      body: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
+            child: const Text(
+              "Historico",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
             ),
+          ),
+          Expanded(
+            child: ContainerHistory(),
+          ),
+        ],
+      ),
+      bottomSheet: Container(
+        padding: const EdgeInsets.fromLTRB(20, 25, 20, 15),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 0, 0, 0),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(20, 25, 20, 15),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 0, 0, 0),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: TextButtonCustom(
-            onPressed: getTextImage,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(
-                  Icons.camera_alt,
+        child: TextButtonCustom(
+          onPressed: getTextImage,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+              ),
+              Text(
+                " Buscar",
+                style: TextStyle(
                   color: Colors.white,
                 ),
-                Text(
-                  " Buscar",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        )
-      ]),
+        ),
+      ),
     );
   }
 }
