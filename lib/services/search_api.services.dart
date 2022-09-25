@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/Model/search_result.model.dart';
+import 'package:flutter_search_book/views/Error/error.view.dart';
+import 'package:flutter_search_book/views/SearchResultPage/search_result_page.view.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -21,7 +23,7 @@ class BooksService extends ChangeNotifier {
     notifyListeners();
   }
 
-  setResult(String title) async {
+  setResult(String title, context) async {
     try {
       title = title.replaceAll("\n", " ");
 
@@ -34,17 +36,29 @@ class BooksService extends ChangeNotifier {
 
       response = await http.get(url);
 
-      if (response.statusCode.toString() != "200") {
-        return throw response.statusCode.toString();
-      }
-
       Map<String, dynamic> resultingData = await json.decode(response.body);
 
-      if (resultingData.containsKey('erro')) return throw "Livro não encontrado";
+      if (resultingData.containsKey('error')) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => const ErrorPage(
+              error: "Nenhum livro encontrado",
+            ),
+          ),
+        );
+      } else {
+        model!.kind = resultingData["kind"];
+        model!.totalItems = resultingData["totalItems"];
+        model!.books = resultingData["items"];
 
-      model!.kind = resultingData["kind"];
-      model!.totalItems = resultingData["totalItems"];
-      model!.books = resultingData["items"];
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => SearchResultPage(
+              model: model!,
+            ),
+          ),
+        );
+      }
     } catch (e) {
       throw BooksException(
         "Erro ao buscar livro. Server response: " + e.toString(),
