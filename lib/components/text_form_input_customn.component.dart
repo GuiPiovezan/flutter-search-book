@@ -1,85 +1,107 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 
-// ignore: must_be_immutable
 class TextFormInputCustomn extends StatefulWidget {
   final String? labelText;
   final IconData? prefixIcon;
-  bool isTextInputSecret;
-  bool obscureText;
+  final bool? isTextInputSecret;
+  final TextInputType? inputType;
+  final bool? obscureText;
   final FormFieldSetter<String>? onSaved;
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
+  final String? placeholder;
 
-  TextFormInputCustomn(
-      {Key? key,
-      required this.labelText,
-      required this.prefixIcon,
-      this.obscureText = false,
-      this.isTextInputSecret = false,
-      this.onSaved,
-      this.controller,
-      this.validator})
-      : super(key: key);
+  const TextFormInputCustomn({
+    Key? key,
+    required this.labelText,
+    required this.prefixIcon,
+    this.obscureText = false,
+    this.isTextInputSecret = false,
+    this.onSaved,
+    this.controller,
+    this.validator,
+    this.placeholder,
+    this.inputType,
+  }) : super(key: key);
 
   @override
   State<TextFormInputCustomn> createState() => _TextFormInputCustomnState();
 }
 
 class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
+  bool obscureText = false;
+  bool isTextInputSecret = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    obscureText = widget.obscureText!;
+    isTextInputSecret = widget.isTextInputSecret!;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        8.0,
-        5.0,
-        8.0,
-        3.0,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextFormField(
-            onSaved: widget.onSaved,
-            controller: widget.controller,
-            validator: widget.validator,
-            obscureText: widget.obscureText,
-            decoration: InputDecoration(
-              labelText: widget.labelText,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(
-                  left: 0,
-                  right: 16,
-                  top: 16,
-                ),
+    return TextFormField(
+      onSaved: widget.onSaved,
+      controller: widget.controller,
+      keyboardType: widget.inputType ?? TextInputType.text,
+      validator: widget.validator,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        labelStyle: const TextStyle(
+          color: Colors.white,
+        ),
+        hintText: widget.placeholder ?? '',
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(
+            color: Color.fromARGB(255, 255, 255, 255),
+            width: 2,
+          ),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color.fromARGB(234, 255, 255, 255),
+            width: 2,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+        labelText: widget.labelText,
+        prefixIcon: Icon(
+          widget.prefixIcon,
+          size: 30.0,
+          color: whiteColor,
+        ),
+        suffixIcon: isTextInputSecret
+            ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
                 child: Icon(
-                  widget.prefixIcon,
-                  size: 30.0,
+                  obscureText ? Icons.visibility : Icons.visibility_off,
                   color: whiteColor,
                 ),
-              ),
-              suffixIcon: widget.isTextInputSecret
-                  ? GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          widget.obscureText = !widget.obscureText;
-                        });
-                      },
-                      child: Icon(
-                        widget.obscureText
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: whiteColor,
-                      ),
-                    )
-                  : null,
-              errorStyle: const TextStyle(fontSize: 16.0),
-            ),
-            style: const TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-        ],
+              )
+            : null,
+        errorStyle: const TextStyle(fontSize: 16.0),
+      ),
+      style: const TextStyle(
+        fontSize: 20.0,
       ),
     );
   }
