@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final Icon? icon;
+  final bool? isDrawer;
 
   const AppBarCustom({
     Key? key,
     this.title,
     this.icon,
+    this.isDrawer = false,
   }) : super(key: key);
 
   @override
@@ -53,24 +55,35 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
             statusBarBrightness: Brightness.light,
           ),
           backgroundColor: const Color.fromARGB(0, 255, 255, 255),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return Container(
-                margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    color: Color.fromARGB(255, 240, 240, 240),
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
+          leading: isDrawer!
+              ? Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.menu,
+                          color: Color.fromARGB(255, 240, 240, 240),
+                        ),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                        tooltip: MaterialLocalizations.of(context)
+                            .openAppDrawerTooltip,
+                      ),
+                    );
                   },
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                )
+              : Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  },
                 ),
-              );
-            },
-          ),
           automaticallyImplyLeading: false,
           centerTitle: true,
           shadowColor: const Color.fromARGB(0, 255, 255, 255),

@@ -15,7 +15,7 @@ class TextFormInputCustom extends StatefulWidget {
   const TextFormInputCustom({
     Key? key,
     required this.labelText,
-    required this.prefixIcon,
+    this.prefixIcon,
     this.obscureText = false,
     this.isTextInputSecret = false,
     this.onSaved,
