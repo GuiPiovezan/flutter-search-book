@@ -58,6 +58,7 @@ class _HomeViewState extends State<HomeView> {
       extendBody: true,
       drawer: const DrawerCustom(),
       appBar: const AppBarCustom(
+        isDrawer: true,
         icon: Icon(Icons.search_rounded),
         title: "Search Book's",
       ),

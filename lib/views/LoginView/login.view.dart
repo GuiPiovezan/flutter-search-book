@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_search_book/FormController/user.controller.dart';
 import 'package:flutter_search_book/components/alert_dialog.component.dart';
 import 'package:flutter_search_book/components/elevated_button_custom.component.dart';
 import 'package:flutter_search_book/components/text_form_input_custom.component.dart';
 import 'package:flutter_search_book/services/authentication.services.dart';
 import 'package:flutter_search_book/services/form.services.dart';
+import 'package:flutter_search_book/theme/gradient_backgound.theme.dart';
+import 'package:flutter_search_book/views/UserRegistration/user_registration.view.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginView extends StatefulWidget {
@@ -20,8 +23,7 @@ class _LoginViewState extends State<LoginView> {
   var authenticationService = AuthenticationService();
   bool isLoading = false;
 
-  final email = TextEditingController();
-  final password = TextEditingController();
+  final LoginControllerService controller = LoginControllerService();
 
   @override
   Widget build(BuildContext context) {
@@ -43,32 +45,11 @@ class _LoginViewState extends State<LoginView> {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 33, 149, 243),
-              Color.fromARGB(255, 33, 149, 243),
-              Color.fromARGB(230, 33, 149, 243),
-              Color.fromARGB(200, 33, 149, 243),
-              Color.fromARGB(170, 33, 149, 243),
-              Color.fromARGB(150, 33, 149, 243),
-              Color.fromARGB(120, 33, 149, 243),
-              Color.fromARGB(100, 33, 149, 243),
-              Color.fromARGB(80, 33, 149, 243),
-              Color.fromARGB(60, 33, 149, 243),
-              Color.fromARGB(45, 33, 149, 243),
-              Color.fromARGB(40, 33, 149, 243),
-              Color.fromARGB(35, 33, 149, 243),
-              Color.fromARGB(30, 33, 149, 243),
-              Color.fromARGB(25, 33, 149, 243),
-              Color.fromARGB(20, 33, 149, 243),
-              Color.fromARGB(15, 33, 149, 243),
-              Color.fromARGB(10, 33, 149, 243),
-              Color.fromARGB(5, 33, 149, 243),
-              Color.fromARGB(0, 33, 149, 243),
-            ],
+            colors: listColors,
           ),
         ),
         child: Form(
@@ -91,7 +72,7 @@ class _LoginViewState extends State<LoginView> {
                         labelText: 'E-mail',
                         prefixIcon: Icons.person_outlined,
                         inputType: TextInputType.emailAddress,
-                        controller: email,
+                        controller: controller.email,
                         validator: MultiValidator([
                           RequiredValidator(errorText: 'E-mail é obrigatório'),
                           EmailValidator(errorText: 'E-mail incorreto')
@@ -105,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                       margin: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextFormInputCustom(
                         labelText: 'Senha',
-                        controller: password,
+                        controller: controller.password,
                         prefixIcon: Icons.lock_outline,
                         obscureText: true,
                         isTextInputSecret: true,
@@ -138,6 +119,28 @@ class _LoginViewState extends State<LoginView> {
                               },
                             ),
                           ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Ainda não tem cadastro?',
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const UserRegistration(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Cadastra-se',
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                        )
+                      ],
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -156,7 +159,11 @@ class _LoginViewState extends State<LoginView> {
     if (formService.validateForm()) {
       formService.saveForm();
       try {
-        await authenticationService.login(context, email.text, password.text);
+        await authenticationService.login(
+          context,
+          controller.email!.text,
+          controller.password!.text,
+        );
       } on AuthenticationException catch (e) {
         setState(() => isLoading = false);
         showDialog(
