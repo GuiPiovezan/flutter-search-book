@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/theme/dark_ligth_theme.theme.dart';
 
-class TextFormInputCustomn extends StatefulWidget {
+class TextFormInputCustom extends StatefulWidget {
   final String? labelText;
   final IconData? prefixIcon;
   final bool? isTextInputSecret;
@@ -12,7 +12,7 @@ class TextFormInputCustomn extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final String? placeholder;
 
-  const TextFormInputCustomn({
+  const TextFormInputCustom({
     Key? key,
     required this.labelText,
     required this.prefixIcon,
@@ -26,10 +26,10 @@ class TextFormInputCustomn extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<TextFormInputCustomn> createState() => _TextFormInputCustomnState();
+  State<TextFormInputCustom> createState() => _TextFormInputCustomState();
 }
 
-class _TextFormInputCustomnState extends State<TextFormInputCustomn> {
+class _TextFormInputCustomState extends State<TextFormInputCustom> {
   bool obscureText = false;
   bool isTextInputSecret = false;
 

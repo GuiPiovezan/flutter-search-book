@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_search_book/components/alert_dialog.component.dart';
 import 'package:flutter_search_book/components/elevated_button_custom.component.dart';
-import 'package:flutter_search_book/components/text_form_input_customn.component.dart';
+import 'package:flutter_search_book/components/text_form_input_custom.component.dart';
 import 'package:flutter_search_book/services/authentication.services.dart';
 import 'package:flutter_search_book/services/form.services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -87,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     Container(
                       margin: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextFormInputCustomn(
+                      child: TextFormInputCustom(
                         labelText: 'E-mail',
                         prefixIcon: Icons.person_outlined,
                         inputType: TextInputType.emailAddress,
@@ -103,7 +103,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     Container(
                       margin: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextFormInputCustomn(
+                      child: TextFormInputCustom(
                         labelText: 'Senha',
                         controller: password,
                         prefixIcon: Icons.lock_outline,
