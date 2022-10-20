@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class TextButtonCustom extends StatelessWidget {
@@ -12,8 +10,8 @@ class TextButtonCustom extends StatelessWidget {
   });
   final Widget? child;
   final VoidCallback? onPressed;
-  final Double? heigth;
-  final Double? width;
+  final double? heigth;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
