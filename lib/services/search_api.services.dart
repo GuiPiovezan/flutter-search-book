@@ -38,6 +38,16 @@ class BooksService extends ChangeNotifier {
 
       Map<String, dynamic> resultingData = await json.decode(response.body);
 
+      if (resultingData == null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => const ErrorPage(
+              error: "Ocorreu um erro, tente novamente!",
+            ),
+          ),
+        );
+      }
+
       if (resultingData.containsKey('error')) {
         Navigator.of(context).push(
           MaterialPageRoute(

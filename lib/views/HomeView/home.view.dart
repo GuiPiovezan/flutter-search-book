@@ -3,7 +3,6 @@ import 'package:flutter_search_book/components/app_bar_custom.component.dart';
 import 'package:flutter_search_book/components/drawer_custom.component.dart';
 import 'package:flutter_search_book/components/text_button_custom.component.dart';
 import 'package:flutter_search_book/core/container.history.core.dart';
-import 'package:flutter_search_book/services/camera.service.dart';
 import 'package:flutter_search_book/services/search_api.services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -16,8 +15,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final cameraService = CameraService();
-
   String text = 'Seja bem-vindo desenvolvedor';
   final TextRecognizer _textRecognizer = TextRecognizer();
   final BooksService _booksService = BooksService();
