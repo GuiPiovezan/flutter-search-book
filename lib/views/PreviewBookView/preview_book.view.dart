@@ -210,7 +210,7 @@ class PreviewBookView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Descrição',
+                      'Sinopse',
                       style: textStyle(),
                     ),
                     const Divider(),
