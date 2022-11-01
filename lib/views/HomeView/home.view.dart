@@ -3,7 +3,8 @@ import 'package:flutter_search_book/components/app_bar_custom.component.dart';
 import 'package:flutter_search_book/components/drawer_custom.component.dart';
 import 'package:flutter_search_book/components/text_button_custom.component.dart';
 import 'package:flutter_search_book/core/Container/history.container.dart';
-import 'package:flutter_search_book/services/search_api.services.dart';
+import 'package:flutter_search_book/core/Container/search_book.container.dart';
+import 'package:flutter_search_book/services/book.services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
@@ -15,15 +16,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  String text = 'Seja bem-vindo desenvolvedor';
   final TextRecognizer _textRecognizer = TextRecognizer();
-  final BooksService _booksService = BooksService();
 
   get inputImageData => null;
-
-  searchBooks() async {
-    await _booksService.setResult(text, context);
-  }
 
   Future<XFile?> pickImage() async =>
       await ImagePicker().pickImage(source: ImageSource.camera);
@@ -39,14 +34,15 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void getTextImage() async {
+    String? text;
     var pickedFile = await pickImage();
-    var originalText = await readTextFromImage(pickedFile!);
+    text = await readTextFromImage(pickedFile!);
 
-    setState(() {
-      text = originalText!;
-    });
-
-    searchBooks();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => SearchBookContainer(text: text!),
+      ),
+    );
   }
 
   @override
@@ -69,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: ContainerHistory(),
           ),
         ],
