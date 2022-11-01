@@ -222,6 +222,26 @@ class PreviewBookView extends StatelessWidget {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 20,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: const ButtonStyle(
+                          textStyle: MaterialStatePropertyAll(
+                              TextStyle(fontSize: 18.0)),
+                        ),
+                        child: const Text("Adicionar ao histórico"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ],
