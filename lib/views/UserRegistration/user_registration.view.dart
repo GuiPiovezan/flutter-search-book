@@ -6,7 +6,7 @@ import 'package:flutter_search_book/components/elevated_button_custom.component.
 import 'package:flutter_search_book/components/text_form_input_custom.component.dart';
 import 'package:flutter_search_book/services/authentication.services.dart';
 import 'package:flutter_search_book/services/user_validator.services.dart';
-import 'package:flutter_search_book/theme/gradient_backgound.theme.dart';
+import 'package:flutter_search_book/core/theme/gradient_backgound.theme.dart';
 
 class UserRegistration extends StatefulWidget {
   const UserRegistration({Key? key}) : super(key: key);
