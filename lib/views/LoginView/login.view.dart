@@ -6,7 +6,7 @@ import 'package:flutter_search_book/components/elevated_button_custom.component.
 import 'package:flutter_search_book/components/text_form_input_custom.component.dart';
 import 'package:flutter_search_book/services/authentication.services.dart';
 import 'package:flutter_search_book/services/form.services.dart';
-import 'package:flutter_search_book/theme/gradient_backgound.theme.dart';
+import 'package:flutter_search_book/core/theme/gradient_backgound.theme.dart';
 import 'package:flutter_search_book/views/UserRegistration/user_registration.view.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 

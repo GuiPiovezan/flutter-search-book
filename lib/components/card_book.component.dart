@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_search_book/Model/book.model.dart';
 import 'package:flutter_search_book/views/PreviewBookView/preview_book.view.dart';
 
 class CardBook extends StatefulWidget {
-  final Map<String, dynamic> model;
+  final Book book;
   const CardBook({
     super.key,
-    required this.model,
+    required this.book,
   });
 
   @override
@@ -23,7 +24,7 @@ class _CardBookState extends State<CardBook> {
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => PreviewBookView(
-            model: widget.model,
+            book: widget.book,
           ),
         ),
       ),
@@ -35,10 +36,10 @@ class _CardBookState extends State<CardBook> {
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Column(
           children: [
-            Text('Titulo: ${isNull(widget.model['volumeInfo']['title'])}'),
+            Text('Titulo: ${isNull(widget.book.volumeInfo!.title)}'),
             Text(
-                'Sub titulo: ${isNull(widget.model['volumeInfo']['subtitle'])}'),
-            Text('Autor: ${isNull(widget.model['volumeInfo']['authors'][0])}'),
+                'Sub titulo: ${isNull(widget.book.volumeInfo!.subtitle)}'),
+            Text('Autor: ${isNull(widget.book.volumeInfo!.authors![0])}'),
           ],
         ),
       ),

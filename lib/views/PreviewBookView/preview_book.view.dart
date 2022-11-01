@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/Model/book.model.dart';
 import 'package:flutter_search_book/Model/industry_identifier.model.dart';
-import 'package:flutter_search_book/services/book.services.dart';
 
 class PreviewBookView extends StatelessWidget {
-  Map<String, dynamic> model;
+  final Book book;
 
-  PreviewBookView({super.key, required this.model});
-
-  final BooksService _booksService = BooksService();
+  const PreviewBookView({
+    super.key,
+    required this.book,
+  });
 
   String returnToStringISBN(List<IndustryIdentifier> industryIdentifier) {
     List<String> isbn = [];
@@ -82,7 +82,6 @@ class PreviewBookView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Book book = _booksService.onMountedBooks(model);
 
     return Scaffold(
       appBar: AppBar(
