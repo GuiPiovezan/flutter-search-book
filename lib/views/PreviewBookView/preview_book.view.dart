@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/Model/book.model.dart';
 import 'package:flutter_search_book/Model/industry_identifier.model.dart';
+import 'package:flutter_search_book/services/book.services.dart';
+import 'package:flutter_search_book/views/PdfPreviewer/pdf_previewer.dart';
+import 'package:flutter/src/widgets/image.dart' as image;
 
-class PreviewBookView extends StatelessWidget {
+class PreviewBookView extends StatefulWidget {
   final Book book;
 
   const PreviewBookView({
@@ -10,6 +13,11 @@ class PreviewBookView extends StatelessWidget {
     required this.book,
   });
 
+  @override
+  State<PreviewBookView> createState() => _PreviewBookViewState();
+}
+
+class _PreviewBookViewState extends State<PreviewBookView> {
   String returnToStringISBN(List<IndustryIdentifier> industryIdentifier) {
     List<String> isbn = [];
 
@@ -82,10 +90,12 @@ class PreviewBookView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BooksService booksService = BooksService();
+    booksService.insertBook(widget.book);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volume #${book.id.toString()}'),
+        title: Text('Volume #${widget.book.id.toString()}'),
       ),
       body: ListView(
         children: <Widget>[
@@ -97,31 +107,31 @@ class PreviewBookView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    book.volumeInfo!.imageLinks != null
+                    widget.book.volumeInfo!.imageLinks != null
                         ? Center(
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 16),
-                              child: Image(
-                                image: NetworkImage(
-                                    book.volumeInfo!.imageLinks!.thumbnail!),
+                              child: image.Image(
+                                image: NetworkImage(widget
+                                    .book.volumeInfo!.imageLinks!.thumbnail!),
                               ),
                             ),
                           )
                         : Container(),
-                    book.volumeInfo!.title != null &&
-                            book.volumeInfo!.subtitle != null
+                    widget.book.volumeInfo!.title != null &&
+                            widget.book.volumeInfo!.subtitle != null
                         ? Text(
-                            '${book.volumeInfo!.title!.toString()}: ${book.volumeInfo!.subtitle!.toString()}',
+                            '${widget.book.volumeInfo!.title!.toString()}: ${widget.book.volumeInfo!.subtitle!.toString()}',
                             style: const TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           )
                         : Text(
-                            book.volumeInfo!.title!.toString(),
+                            widget.book.volumeInfo!.title!.toString(),
                             style: const TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           ),
                     Text(
-                      "Por ${book.volumeInfo!.authors!.reduce((value, element) => "$value, $element")} • ${returnedYearOfPublisherBook(book.volumeInfo!.publishedDate!)}",
+                      "Por ${widget.book.volumeInfo!.authors!.reduce((value, element) => "$value, $element")} • ${returnedYearOfPublisherBook(widget.book.volumeInfo!.publishedDate!)}",
                       style: const TextStyle(
                         fontSize: 16.0,
                       ),
@@ -171,29 +181,29 @@ class PreviewBookView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'ISBN (13, 10): ${returnToStringISBN(book.volumeInfo!.industryIdentifiers!)}',
+                              'ISBN (13, 10): ${returnToStringISBN(widget.book.volumeInfo!.industryIdentifiers!)}',
                               style: textStyle(),
                             ),
                             Text(
-                              'Publicação: ${onFormatDatePublisherBook(book.volumeInfo!.publishedDate!)}',
+                              'Publicação: ${onFormatDatePublisherBook(widget.book.volumeInfo!.publishedDate!)}',
                               style: textStyle(),
                             ),
-                            book.volumeInfo!.publisher != null
+                            widget.book.volumeInfo!.publisher != null
                                 ? Text(
-                                    'Editora: ${book.volumeInfo!.publisher}',
+                                    'Editora: ${widget.book.volumeInfo!.publisher}',
                                     style: textStyle(),
                                   )
                                 : Container(),
                             Text(
-                              'Autor(res): ${book.volumeInfo!.authors!.reduce((value, element) => "$value, $element")}',
+                              'Autor(res): ${widget.book.volumeInfo!.authors!.reduce((value, element) => "$value, $element")}',
                               style: textStyle(),
                             ),
                             Text(
-                              'Número de páginas: ${book.volumeInfo!.pageCount}',
+                              'Número de páginas: ${widget.book.volumeInfo!.pageCount}',
                               style: textStyle(),
                             ),
                             Text(
-                              'Idioma: ${returnedLanguageText(book.volumeInfo!.language!)}',
+                              'Idioma: ${returnedLanguageText(widget.book.volumeInfo!.language!)}',
                               style: textStyle(),
                             ),
                           ],
@@ -214,33 +224,40 @@ class PreviewBookView extends StatelessWidget {
                     ),
                     const Divider(),
                     Text(
-                      '${book.volumeInfo!.description}',
+                      '${widget.book.volumeInfo!.description}',
                       textAlign: TextAlign.justify,
                       style: textStyle(),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width - 20,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: const ButtonStyle(
-                          textStyle: MaterialStatePropertyAll(
-                              TextStyle(fontSize: 18.0)),
-                        ),
-                        child: const Text("Adicionar ao histórico"),
+              widget.book.accessInfo!.pdf!.isAvailable == true
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 20,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    widget.book.volumeInfo!.infoLink!;
+
+                                openPDF(context, url);
+                              },
+                              style: const ButtonStyle(
+                                textStyle: MaterialStatePropertyAll(
+                                    TextStyle(fontSize: 18.0)),
+                              ),
+                              child: const Text("Mais detalhes"),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                    )
+                  : Container(),
             ],
           ),
         ],
@@ -249,4 +266,12 @@ class PreviewBookView extends StatelessWidget {
   }
 
   TextStyle textStyle() => const TextStyle(fontSize: 18.0);
+
+  void openPDF(BuildContext context, String url) => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => PdfPreviewer(
+                url: url,
+              )),
+        ),
+      );
 }

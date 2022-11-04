@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
             child: const Text(
-              "Historico",
+              "Histórico",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
             ),
           ),

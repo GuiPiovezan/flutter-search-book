@@ -32,7 +32,7 @@ class AccessInfo {
     embeddable = accessInfoKey['embeddable'];
     epub = Epub.fromMap(accessInfoKey['epub']);
     pdf = Epub.fromMap(accessInfoKey['pdf']);
-    publicDomain = accessInfoKey['publicDocument'];
+    publicDomain = accessInfoKey['publicDomain'];
     quoteSharingAllowed = accessInfoKey['quoteSharingAllowed'];
     textToSpeechPermission = accessInfoKey['textToSpeechPermission'];
     viewability = accessInfoKey['viewability'];

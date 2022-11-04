@@ -11,8 +11,8 @@ class SaleInfo {
 
   SaleInfo.fromMap(Map<String, dynamic> map){
     final Map<String, dynamic> saleInfoKey = map['saleInfo'];
-    country = saleInfoKey['country'];
-    isEbook = saleInfoKey['isEbook'];
-    saleability = saleInfoKey['saleability'];
+    country = saleInfoKey['country'] ?? null;
+    isEbook = saleInfoKey['isEbook'] ?? null;
+    saleability = saleInfoKey['saleability'] ?? null;
   }
 }

@@ -30,6 +30,7 @@ class VolumeInfoModel {
 
   bool? allowAnonLogging;
   List<String>? authors;
+  List<String>? categories;
   String? canonicalVolumeLink;
   String? contentVersion;
   Dimensions? dimensions;
@@ -54,6 +55,7 @@ class VolumeInfoModel {
     final Map<String, dynamic> volumeInfoKey = map['volumeInfo'];
     allowAnonLogging = volumeInfoKey['allowAnonLogging'];
     authors = onMountedAuthors(map);
+    categories = onMountedCategories(map);
     canonicalVolumeLink = volumeInfoKey['canonicalVolumeLink'];
     contentVersion = volumeInfoKey['contentVersion'];
     dimensions = verifyNullabeDimensionKey(map);
@@ -111,5 +113,15 @@ class VolumeInfoModel {
     });
 
     return authors;
+  }
+
+  List<String>? onMountedCategories(Map<String, dynamic> map) {
+    categories = [];
+    if(map['volumeInfo']['categories'] != null){
+      map['volumeInfo']['categories']
+          .forEach((item) => categories!.add(item));
+    }
+
+    return categories;
   }
 }
