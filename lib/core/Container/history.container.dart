@@ -15,22 +15,28 @@ class _ContainerHistoryState extends State<ContainerHistory> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: firestore.collection("books").snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) return const Text('Erro ao carregar dados');
-          if (!snapshot.hasData) return const CircularProgressIndicator();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 90),
+      child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: firestore
+              .collection("books")
+              .orderBy("dateRegistration", descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) return const Text('Erro ao carregar dados');
+            if (!snapshot.hasData) return const CircularProgressIndicator();
 
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (_, index) {
-              return CardBookHistory(
-                book: Book.fromMap(
-                  snapshot.data!.docs[index].data(),
-                ),
-              );
-            },
-          );
-        });
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (_, index) {
+                return CardBookHistory(
+                  book: Book.fromMap(
+                    snapshot.data!.docs[index].data(),
+                  ),
+                );
+              },
+            );
+          }),
+    );
   }
 }
