@@ -10,9 +10,9 @@ class ImageLinks {
     Map<String, dynamic> imageLinkKey = map;
     smallThumbnail = imageLinkKey['smallThumbnail'];
     thumbnail = imageLinkKey['thumbnail'];
-    // small = imageLinkKey['small'];
-    // medium = imageLinkKey['medium'];
-    // large = imageLinkKey['large'];
-    // extraLarge = imageLinkKey['extraLarge'];
+    small = imageLinkKey['small'];
+    medium = imageLinkKey['medium'];
+    large = imageLinkKey['large'];
+    extraLarge = imageLinkKey['extraLarge'];
   }
 }
