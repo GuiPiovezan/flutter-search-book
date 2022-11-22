@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_search_book/Model/book.model.dart';
 import 'package:flutter_search_book/Model/industry_identifier.model.dart';
+import 'package:flutter_search_book/components/app_bar_custom.component.dart';
 import 'package:flutter_search_book/services/book.services.dart';
 import 'package:flutter_search_book/views/PdfPreviewer/pdf_previewer.dart';
 import 'package:flutter/src/widgets/image.dart' as image;
@@ -94,8 +95,9 @@ class _PreviewBookViewState extends State<PreviewBookView> {
     booksService.insertBook(widget.book);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Volume #${widget.book.id.toString()}'),
+      appBar: AppBarCustom(
+        title: 'Volume #${widget.book.id.toString()}',
+        context: context,
       ),
       body: ListView(
         children: <Widget>[
@@ -245,7 +247,7 @@ class _PreviewBookViewState extends State<PreviewBookView> {
                                 final url =
                                     widget.book.volumeInfo!.infoLink!;
 
-                                openPDF(context, url);
+                                // openPDF(context, url);
                               },
                               style: const ButtonStyle(
                                 textStyle: MaterialStatePropertyAll(
@@ -267,11 +269,11 @@ class _PreviewBookViewState extends State<PreviewBookView> {
 
   TextStyle textStyle() => const TextStyle(fontSize: 18.0);
 
-  void openPDF(BuildContext context, String url) => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => PdfPreviewer(
-                url: url,
-              )),
-        ),
-      );
+  // void openPDF(BuildContext context, String url) => Navigator.of(context).push(
+  //       MaterialPageRoute(
+  //         builder: ((context) => PdfPreviewer(
+  //               url: url,
+  //             )),
+  //       ),
+  //     );
 }

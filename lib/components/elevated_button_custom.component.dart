@@ -19,7 +19,7 @@ class ElevatedButtonCustom extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           fixedSize: Size(MediaQuery.of(context).size.width, 50.0),
-          textStyle: TextStyle(fontSize: fontSize),
+          textStyle: TextStyle(fontSize: 22),
           elevation: 10,
           backgroundColor: Color.fromARGB(255, 5, 121, 216),
           shape: RoundedRectangleBorder(

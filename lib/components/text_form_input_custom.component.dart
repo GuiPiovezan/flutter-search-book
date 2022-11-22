@@ -83,7 +83,7 @@ class _TextFormInputCustomState extends State<TextFormInputCustom> {
         prefixIcon: Icon(
           widget.prefixIcon,
           size: 30.0,
-          color: whiteColor,
+          color: Colors.white,
         ),
         suffixIcon: isTextInputSecret
             ? GestureDetector(
@@ -94,7 +94,7 @@ class _TextFormInputCustomState extends State<TextFormInputCustom> {
                 },
                 child: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: whiteColor,
+                  color: Colors.white,
                 ),
               )
             : null,

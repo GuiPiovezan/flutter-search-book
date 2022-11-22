@@ -7,6 +7,6 @@ enum DarkEnumColorsTheme {
   const DarkEnumColorsTheme(this.value);
 }
 
-Color primaryColor = Color.fromARGB(255, 0, 26, 255);
-Color whiteColor = Colors.white;
-double fontSize = 26.0;
+// Color primaryColor = Color.fromARGB(255, 0, 26, 255);
+// Color whiteColor = Colors.white;
+// double fontSize = 26.0;

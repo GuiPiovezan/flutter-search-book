@@ -57,8 +57,9 @@ class _UserRegistrationState extends State<UserRegistration> {
     return Scaffold(
       backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
-      appBar: const AppBarCustom(
+      appBar: AppBarCustom(
         title: "Cadastro",
+        context: context,
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

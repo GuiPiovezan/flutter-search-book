@@ -32,13 +32,17 @@ class _CardBookState extends State<CardBook> {
         margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         decoration: const BoxDecoration(
-            color: Colors.black,
+            color: Color.fromARGB(150, 240, 240, 240),
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Column(
           children: [
-            Text('Titulo: ${isNull(widget.book.volumeInfo!.title)}'),
             Text(
-                'Sub titulo: ${isNull(widget.book.volumeInfo!.subtitle)}'),
+              'Titulo: ${isNull(widget.book.volumeInfo!.title)}',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text('Sub titulo: ${isNull(widget.book.volumeInfo!.subtitle)}'),
             Text('Autor: ${isNull(widget.book.volumeInfo!.authors![0])}'),
           ],
         ),

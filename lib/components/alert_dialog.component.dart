@@ -5,11 +5,11 @@ AlertDialog showAlertDialog(BuildContext context, String message) =>
     AlertDialog(
       title: Text(
         'Atenção',
-        style: TextStyle(fontSize: fontSize = 22.0),
+        style: TextStyle(fontSize: 22.0),
       ),
       content: Text(
         message,
-        style: TextStyle(fontSize: fontSize = 22.0),
+        style: TextStyle(fontSize: 22.0),
       ),
       actions: <Widget>[
         TextButton(
@@ -18,7 +18,7 @@ AlertDialog showAlertDialog(BuildContext context, String message) =>
           },
           child: Text(
             'OK',
-            style: TextStyle(fontSize: fontSize = 22.0),
+            style: TextStyle(fontSize: 22.0),
           ),
         ),
       ],

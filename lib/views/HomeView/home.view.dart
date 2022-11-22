@@ -48,21 +48,32 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+      backgroundColor: Color.fromARGB(255, 240, 240, 240),
+      // extendBody: true,
+      // extendBodyBehindAppBar: true,
       drawer: const DrawerCustom(),
-      appBar: const AppBarCustom(
+      appBar: AppBarCustom(
         isDrawer: true,
-        icon: Icon(Icons.search_rounded),
+        icon: const Icon(
+          Icons.search_rounded,
+          color: Color.fromARGB(255, 240, 240, 240),
+        ),
         title: "Search Book's",
+        context: context,
       ),
       body: Column(
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
+            // color: Colors.amber,
             padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
             child: const Text(
               "Histórico",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+                // color: Colors.black,
+              ),
             ),
           ),
           const Expanded(
