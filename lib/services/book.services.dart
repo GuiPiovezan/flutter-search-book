@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_search_book/Model/book.model.dart';
 import 'package:flutter_search_book/Model/epub.model.dart';
 import 'package:flutter_search_book/Model/image_links.model.dart';
-import 'package:flutter_search_book/Model/industry_identifier.model.dart';
 import 'package:flutter_search_book/Model/panelization_summary.model.dart';
 import 'package:flutter_search_book/Model/reading_modes.model.dart';
 import 'package:flutter_search_book/Model/search_result.model.dart';
-import 'package:flutter_search_book/views/Error/error.view.dart';
-import 'package:flutter_search_book/views/SearchResultPage/search_result_page.view.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -41,6 +38,7 @@ class BooksService extends ChangeNotifier {
 
       if (resultingData.containsKey('erro'))
         return throw "Nenhum livro encontrado";
+
       SearchResultModel resultModel = SearchResultModel.fromJson(resultingData);
 
       return resultModel;
@@ -51,16 +49,14 @@ class BooksService extends ChangeNotifier {
     }
   }
 
-  void insertBook(Book book){
-
-    List<Map<String, dynamic>> mapIndustryIdentifiers = _constructorListMapIndustryIdentifier(book);
-    Map<String, dynamic> mapReadingModes = _constructorMapReadingModes(book.volumeInfo!.readingModes!);
+  void insertBook(Book book) {
+    List<Map<String, dynamic>> mapIndustryIdentifiers =
+        _constructorListMapIndustryIdentifier(book);
+    Map<String, dynamic> mapReadingModes =
+        _constructorMapReadingModes(book.volumeInfo!.readingModes!);
 
     try {
-      firestore
-          .collection("books")
-          .doc("volume:${book.id}")
-          .set({
+      firestore.collection("books").doc("volume:${book.id}").set({
         "dateRegistration": DateTime.now(),
         "kind": book.kind,
         "id": book.id,
@@ -70,7 +66,9 @@ class BooksService extends ChangeNotifier {
           "title": book.volumeInfo!.title,
           "subtitle": book.volumeInfo!.subtitle,
           "authors": book.volumeInfo!.authors!.map((e) => e).toList(),
-          "categories": book.volumeInfo!.categories != null ? book.volumeInfo!.categories!.map((e) => e).toList() : null,
+          "categories": book.volumeInfo!.categories != null
+              ? book.volumeInfo!.categories!.map((e) => e).toList()
+              : null,
           "publisher": book.volumeInfo!.publisher,
           "publishedDate": book.volumeInfo!.publishedDate,
           "description": book.volumeInfo!.description,
@@ -82,25 +80,26 @@ class BooksService extends ChangeNotifier {
           "maturityRating": book.volumeInfo!.maturityRating,
           "allowAnonLogging": book.volumeInfo!.allowAnonLogging,
           "contentVersion": book.volumeInfo!.contentVersion,
-          "panelizationSummary": _constructorMapPanelizationSummary(book.volumeInfo!.panelizationSummary!),
+          "panelizationSummary": _constructorMapPanelizationSummary(
+              book.volumeInfo!.panelizationSummary!),
           "imageLinks": _constructorMapImageLinks(book.volumeInfo!.imageLinks!),
           "language": book.volumeInfo!.language,
           "previewLink": book.volumeInfo!.previewLink,
           "infoLink": book.volumeInfo!.infoLink,
           "canonicalVolumeLink": book.volumeInfo!.canonicalVolumeLink
         },
-         "accessInfo": {
-           "country": book.accessInfo!.country,
-           "viewability": book.accessInfo!.viewability,
-           "embeddable": book.accessInfo!.embeddable,
-           "publicDomain": book.accessInfo!.publicDomain,
-           "textToSpeechPermission": book.accessInfo!.textToSpeechPermission,
-           "webReaderLink": book.accessInfo!.webReaderLink,
-           "accessViewStatus": book.accessInfo!.accessViewStatus,
-           "quoteSharingAllowed": book.accessInfo!.quoteSharingAllowed,
-           "epub": _constructorMapEpub(book.accessInfo!.epub!),
-           "pdf": _constructorMapPdf(book.accessInfo!.pdf!)
-         },
+        "accessInfo": {
+          "country": book.accessInfo!.country,
+          "viewability": book.accessInfo!.viewability,
+          "embeddable": book.accessInfo!.embeddable,
+          "publicDomain": book.accessInfo!.publicDomain,
+          "textToSpeechPermission": book.accessInfo!.textToSpeechPermission,
+          "webReaderLink": book.accessInfo!.webReaderLink,
+          "accessViewStatus": book.accessInfo!.accessViewStatus,
+          "quoteSharingAllowed": book.accessInfo!.quoteSharingAllowed,
+          "epub": _constructorMapEpub(book.accessInfo!.epub!),
+          "pdf": _constructorMapPdf(book.accessInfo!.pdf!)
+        },
       });
     } on FirebaseException catch (e) {
       throw Exception(e.code);
@@ -111,8 +110,8 @@ class BooksService extends ChangeNotifier {
     List<Map<String, dynamic>> mapIndustryIdentifiers = [];
     for (var element in book.volumeInfo!.industryIdentifiers!) {
       Map<String, dynamic> map = {
-      "identifier": element.identifier,
-      "type": element.type
+        "identifier": element.identifier,
+        "type": element.type,
       };
 
       mapIndustryIdentifiers.add(map);
@@ -121,21 +120,22 @@ class BooksService extends ChangeNotifier {
     return mapIndustryIdentifiers;
   }
 
-  Map<String, dynamic> _constructorMapReadingModes(ReadingModes readingModes){
+  Map<String, dynamic> _constructorMapReadingModes(ReadingModes readingModes) {
     return {
       "image": readingModes.image,
-      "text": readingModes.text
+      "text": readingModes.text,
     };
   }
 
-  Map<String, dynamic> _constructorMapPanelizationSummary(PanelizationSummary panelizationSummary){
+  Map<String, dynamic> _constructorMapPanelizationSummary(
+      PanelizationSummary panelizationSummary) {
     return {
       "containsEpubBubbles": panelizationSummary.containsEpubBubbles,
-      "containsImageBubbles": panelizationSummary.containsImageBubbles
+      "containsImageBubbles": panelizationSummary.containsImageBubbles,
     };
   }
 
-  Map<String, dynamic> _constructorMapImageLinks(ImageLinks imageLinks){
+  Map<String, dynamic> _constructorMapImageLinks(ImageLinks imageLinks) {
     return {
       "smallThumbnail": imageLinks.smallThumbnail,
       "thumbnail": imageLinks.thumbnail,
@@ -147,10 +147,7 @@ class BooksService extends ChangeNotifier {
   }
 
   Map<String, dynamic> _constructorMapEpub(Epub epub) {
-    return {
-      "isAvailable": epub.isAvailable,
-      "acsTokenLink": epub.acsTokenLink
-    };
+    return {"isAvailable": epub.isAvailable, "acsTokenLink": epub.acsTokenLink};
   }
 
   Map<String, dynamic> _constructorMapPdf(Epub pdf) {
@@ -158,5 +155,20 @@ class BooksService extends ChangeNotifier {
       "isAvailable": pdf.isAvailable,
       "acsTokenLink": pdf.acsTokenLink,
     };
+  }
+
+  Future<List<Book>> getHistory() async {
+    List<Book> books = [];
+    await firestore
+        .collection("books")
+        .orderBy("dateRegistration", descending: true)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        books.add(Book.fromMap(element.data()));
+      }
+    });
+
+    return books;
   }
 }
