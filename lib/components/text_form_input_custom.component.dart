@@ -51,12 +51,12 @@ class _TextFormInputCustomState extends State<TextFormInputCustom> {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelStyle: const TextStyle(
-          color: Colors.white,
+          color: Colors.black,
         ),
         hintText: widget.placeholder ?? '',
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.white,
+            color: Colors.black,
             width: 2,
           ),
           borderRadius: BorderRadius.all(
@@ -72,7 +72,7 @@ class _TextFormInputCustomState extends State<TextFormInputCustom> {
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color.fromARGB(234, 255, 255, 255),
+            color: Colors.black,
             width: 2,
           ),
           borderRadius: BorderRadius.all(
@@ -83,7 +83,7 @@ class _TextFormInputCustomState extends State<TextFormInputCustom> {
         prefixIcon: Icon(
           widget.prefixIcon,
           size: 30.0,
-          color: Colors.white,
+          color: Colors.black,
         ),
         suffixIcon: isTextInputSecret
             ? GestureDetector(
@@ -94,7 +94,7 @@ class _TextFormInputCustomState extends State<TextFormInputCustom> {
                 },
                 child: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               )
             : null,
