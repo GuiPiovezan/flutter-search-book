@@ -31,7 +31,7 @@ class _LoginViewState extends State<LoginView> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 240, 240, 240),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: AppBar(

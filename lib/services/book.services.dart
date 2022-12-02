@@ -6,6 +6,7 @@ import 'package:flutter_search_book/Model/image_links.model.dart';
 import 'package:flutter_search_book/Model/panelization_summary.model.dart';
 import 'package:flutter_search_book/Model/reading_modes.model.dart';
 import 'package:flutter_search_book/Model/search_result.model.dart';
+import 'package:flutter_search_book/services/authentication.services.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -16,6 +17,7 @@ class BooksException implements Exception {
 }
 
 class BooksService extends ChangeNotifier {
+  final AuthenticationService auth = AuthenticationService();
   final firestore = FirebaseFirestore.instance;
 
   Future<SearchResultModel> searchResult(String title) async {
@@ -56,7 +58,12 @@ class BooksService extends ChangeNotifier {
         _constructorMapReadingModes(book.volumeInfo!.readingModes!);
 
     try {
-      firestore.collection("books").doc("volume:${book.id}").set({
+      firestore
+          .collection("users")
+          .doc(auth.userIsLogaded().uid)
+          .collection("books")
+          .doc("volume:${book.id}")
+          .set({
         "dateRegistration": DateTime.now(),
         "kind": book.kind,
         "id": book.id,
@@ -160,6 +167,8 @@ class BooksService extends ChangeNotifier {
   Future<List<Book>> getHistory() async {
     List<Book> books = [];
     await firestore
+        .collection("users")
+        .doc(auth.userIsLogaded().uid)
         .collection("books")
         .orderBy("dateRegistration", descending: true)
         .get()

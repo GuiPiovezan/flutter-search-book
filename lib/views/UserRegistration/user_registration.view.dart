@@ -55,7 +55,7 @@ class _UserRegistrationState extends State<UserRegistration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 240, 240, 240),
       extendBodyBehindAppBar: true,
       appBar: AppBarCustom(
         title: "Cadastro",
